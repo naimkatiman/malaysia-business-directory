@@ -1,0 +1,6 @@
+@MalaysiaBusinessDirectory.Api_HostAddress = http://localhost:5057
+
+GET {{MalaysiaBusinessDirectory.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
