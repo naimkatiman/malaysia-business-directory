@@ -42,6 +42,38 @@ namespace MalaysiaBusinessDirectory.Api.Controllers
 
             return Ok(review);
         }
+
+        [HttpPost]
+        public async Task<ActionResult<ReviewDto>> CreateReview(ReviewCreateDto reviewDto)
+        {
+            // Check if business exists
+            var business = await _businessService.GetBusinessByIdAsync(reviewDto.BusinessId);
+            if (business == null)
+                return BadRequest("Business not found");
+
+            var review = await _reviewService.CreateReviewAsync(reviewDto);
+            return CreatedAtAction(nameof(GetReview), new { id = review.Id }, review);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<ReviewDto>> UpdateReview(Guid id, ReviewUpdateDto reviewDto)
+        {
+            var review = await _reviewService.UpdateReviewAsync(id, reviewDto);
+            if (review == null)
+                return NotFound();
+
+            return Ok(review);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteReview(Guid id)
+        {
+            var result = await _reviewService.DeleteReviewAsync(id);
+            if (!result)
+                return NotFound();
+
+            return NoContent();
+        }
     }
 
     public class ReviewDto
@@ -57,5 +89,23 @@ namespace MalaysiaBusinessDirectory.Api.Controllers
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public int HelpfulCount { get; set; }
+    }
+    
+    public class ReviewCreateDto
+    {
+        public Guid BusinessId { get; set; }
+        public Guid UserId { get; set; }
+        public string Title { get; set; }
+        public string Content { get; set; }
+        public int Rating { get; set; } // 1-5
+        public List<string>? PhotoUrls { get; set; }
+    }
+
+    public class ReviewUpdateDto
+    {
+        public string? Title { get; set; }
+        public string? Content { get; set; }
+        public int? Rating { get; set; }
+        public List<string>? PhotoUrls { get; set; }
     }
 }
