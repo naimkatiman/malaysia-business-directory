@@ -2,7 +2,7 @@ import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
 import { Coffee, ShoppingBag, Utensils, Hotel, Car, Briefcase, Scissors, Stethoscope } from "lucide-react"
 
-// This would typically come from the database
+// this would typically come from the database
 const categories = [
   {
     id: "1",
@@ -62,7 +62,7 @@ const categories = [
   },
 ]
 
-export default function CategoryGrid() {
+export default function categoryGrid() {
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-4xl">
       {categories.map((category) => (
