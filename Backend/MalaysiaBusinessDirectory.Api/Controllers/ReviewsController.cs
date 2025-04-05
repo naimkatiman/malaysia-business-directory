@@ -74,6 +74,32 @@ namespace MalaysiaBusinessDirectory.Api.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("statistics/{businessId}")]
+        public async Task<ActionResult<ReviewStatisticsDto>> GetBusinessReviewStatistics(Guid businessId)
+        {
+            // Check if business exists
+            var business = await _businessService.GetBusinessByIdAsync(businessId);
+            if (business == null)
+                return NotFound("Business not found");
+
+            var statistics = await _reviewService.GetBusinessReviewStatisticsAsync(businessId);
+            return Ok(statistics);
+        }
+
+        [HttpPost("{reviewId}/helpful")]
+        public async Task<ActionResult> MarkReviewAsHelpful(Guid reviewId, [FromBody] ReviewHelpfulDto helpfulDto)
+        {
+            var review = await _reviewService.GetReviewByIdAsync(reviewId);
+            if (review == null)
+                return NotFound();
+
+            var result = await _reviewService.MarkReviewHelpfulAsync(reviewId, helpfulDto.UserId);
+            if (!result)
+                return BadRequest("Failed to mark review as helpful");
+
+            return Ok();
+        }
     }
 
     public class ReviewDto
@@ -107,5 +133,18 @@ namespace MalaysiaBusinessDirectory.Api.Controllers
         public string? Content { get; set; }
         public int? Rating { get; set; }
         public List<string>? PhotoUrls { get; set; }
+    }
+
+    public class ReviewHelpfulDto
+    {
+        public Guid UserId { get; set; }
+    }
+
+    public class ReviewStatisticsDto
+    {
+        public Guid BusinessId { get; set; }
+        public double AverageRating { get; set; }
+        public int TotalReviews { get; set; }
+        public Dictionary<int, int> RatingDistribution { get; set; } = new Dictionary<int, int>();
     }
 }
