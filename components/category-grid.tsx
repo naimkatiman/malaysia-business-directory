@@ -1,9 +1,21 @@
 import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
 import { Coffee, ShoppingBag, Utensils, Hotel, Car, Briefcase, Scissors, Stethoscope } from "lucide-react"
+import React from "react"
+
+// Define types for our category data
+type CategoryIcon = React.FC<React.SVGProps<SVGSVGElement>>
+
+interface Category {
+  id: string
+  name: string
+  icon: CategoryIcon
+  count: number
+  slug: string
+}
 
 // this would typically come from the database
-const categories = [
+const categories: Category[] = [
   {
     id: "1",
     name: "Restaurants",
@@ -69,7 +81,7 @@ const categories = [
   },
 ]
 
-export default function categoryGrid() {
+export default function CategoryGrid(): React.ReactElement {
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-4xl">
       {categories.map((category) => (
