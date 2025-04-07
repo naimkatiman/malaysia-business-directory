@@ -60,6 +60,13 @@ const categories = [
     count: 534,
     slug: "healthcare",
   },
+  {
+    id: "9",
+    name: "Education",
+    icon: Briefcase, // Using Briefcase as a placeholder icon
+    count: 328,
+    slug: "education",
+  },
 ]
 
 export default function categoryGrid() {
