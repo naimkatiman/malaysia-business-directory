@@ -37,6 +37,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddScoped<IBusinessService, BusinessService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ITagService, TagService>();
+builder.Services.AddScoped<IBusinessAnalyticsService, BusinessAnalyticsService>();
 
 // Add Singleton for GeometryFactory for spatial queries
 builder.Services.AddSingleton(NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326));

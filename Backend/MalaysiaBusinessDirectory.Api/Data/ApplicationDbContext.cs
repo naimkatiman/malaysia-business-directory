@@ -14,6 +14,7 @@ namespace MalaysiaBusinessDirectory.Api.Data
         public DbSet<Category> Categories { get; set; } = null!;
         public DbSet<Tag> Tags { get; set; } = null!;
         public DbSet<BusinessTag> BusinessTags { get; set; } = null!;
+        public DbSet<BusinessAnalytics> BusinessAnalytics { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -39,6 +40,13 @@ namespace MalaysiaBusinessDirectory.Api.Data
             modelBuilder.Entity<Business>()
                 .HasIndex(b => b.Location)
                 .HasMethod("GIST");
+            
+            // Configure BusinessAnalytics relationship
+            modelBuilder.Entity<BusinessAnalytics>()
+                .HasOne(ba => ba.Business)
+                .WithOne()
+                .HasForeignKey<BusinessAnalytics>(ba => ba.BusinessId)
+                .OnDelete(DeleteBehavior.Cascade);
                 
             // Add any other necessary configurations
         }
