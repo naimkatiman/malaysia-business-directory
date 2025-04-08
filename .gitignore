@@ -25,3 +25,40 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+*.js.map
+*.d.ts
+types/*.js
+
+# Visual Studio
+.vs/
+*.user
+*.userosscache
+*.suo
+
+# C# build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+msbuild.log
+msbuild.err
+msbuild.wrn
+
+# Local development settings
+appsettings.Development.json
+appsettings.local.json
+
+# Database files
+*.db
+*.db-shm
+*.db-wal
+
+# Export and temp files
+/exports/
+/temp/
