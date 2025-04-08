@@ -3,6 +3,7 @@ using NetTopologySuite.Geometries;
 using NetTopologySuite;
 using MalaysiaBusinessDirectory.Api.Data;
 using MalaysiaBusinessDirectory.Api.Services;
+using MalaysiaBusinessDirectory.Api.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +39,7 @@ builder.Services.AddScoped<IBusinessService, BusinessService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ITagService, TagService>();
 builder.Services.AddScoped<IBusinessAnalyticsService, BusinessAnalyticsService>();
+builder.Services.AddScoped<DataExportUtility>();
 
 // Add Singleton for GeometryFactory for spatial queries
 builder.Services.AddSingleton(NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326));
